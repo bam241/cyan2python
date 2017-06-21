@@ -46,3 +46,27 @@ def inventories(db='cyclus.sqlite', facilities=(), nucs=()):
     df.columns = ['Time', 'Quantity']
     extra = copy.deepcopy(df.iloc[0]['Quantity'])
     return df
+
+
+def transactions(db='cyclus.sqlite', receivers=(), senders=(), nucs=()):
+    timestep = get_timestep()
+    cmd_base = "cyan -db " + db + " flow "
+    flow = []
+    if len(receivers) == 0:
+        receivers = [" "]
+    if len(senders) == 0:
+        senders = [" "]
+    for rec_name in receivers:
+        for send_name in senders:
+            cmd = cmd_base
+            if( rec_name != " "):
+                cmd += " -to " + rec_name 
+            if( send_name != " "):
+                cmd += " -from " + send_name
+            flow += cyan(cmd)
+    flow = translate_info(flow, 2, timestep)
+    df = pd.DataFrame(data=flow)
+    df.reset_index(inplace=True)
+    df.columns = ['Time', 'Mass']
+    extra = copy.deepcopy(df.iloc[0]['Mass'])
+    return df

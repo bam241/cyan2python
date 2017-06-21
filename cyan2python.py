@@ -33,7 +33,7 @@ def translate_info(input, size, lengh):
     return output
 
 
-def GetInventory(db='cyclus.sqlite', facilities=(), nucs=()):
+def inventories(db='cyclus.sqlite', facilities=(), nucs=()):
     timestep = get_timestep()
     cmd_base = "cyan -db " + db + " inv "
     inv = []

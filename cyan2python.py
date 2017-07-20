@@ -60,7 +60,7 @@ def transactions(db='cyclus.sqlite', receivers=(), senders=(), nucs=()):
         for send_name in senders:
             cmd = cmd_base
             if( rec_name != " "):
-                cmd += " -to " + rec_name 
+                cmd += " -to " + rec_name
             if( send_name != " "):
                 cmd += " -from " + send_name
             flow += cyan(cmd)
